@@ -54,6 +54,7 @@ public class SinglyLinkedList {
         for(int i=1; i<index;i++){
             temp=temp.next;
         }
+        System.out.println();
 
         // System.out.println(head);
 
@@ -86,7 +87,6 @@ public class SinglyLinkedList {
         head=head.next;
         if(head==tail){
             tail=null;
-            head=null;
         }
 
         size--;
@@ -94,15 +94,62 @@ public class SinglyLinkedList {
 
     }
 
+    public int DeleteLast(){
+        if(size<=1){
+            return DeleteLast();
+        }
+
+        Node Secondlast=get(size-1);
+        int val=tail.data;
+        tail=Secondlast;
+        tail.next=null;
+        return val;
+    }
+
+    public Node get(int index){
+
+        Node node=head;
+        for(int i=1;i<index;i++){
+            node=node.next;
+        }
+        size--;
+        return node;
+    }
+
+    public int DeleteAnyElem(int index){
+        if(index==0){
+            DeleteFirst();
+        }
+        if(index==size-1){
+            return DeleteLast();
+        }
+        Node prev=get(index-1);
+        int val=prev.next.data;
+        prev.next=prev.next.next;
+        return val;
+
+    }
+
+    public Node find(int value){
+        Node node=head;
+
+        while(node!=null){
+            if(node.data==value){
+                return node;
+            }
+            node=node.next;
+        }
+        return node;
+    }
     public static void main(String[] args) {
         SinglyLinkedList sl=new SinglyLinkedList();
         sl.insertFirst(3);
-        // sl.insertFirst(2);
-        // sl.insertFirst(1);
-        // sl.insertFirst(0);
+        sl.insertFirst(2);
+        sl.insertFirst(1);
+        sl.insertFirst(0);
 
-        // sl.insertLast(4);
-        // sl.insertLast(5);
+        sl.insertLast(4);
+        sl.insertLast(5);
         // sl.insertLast(6);
         // sl.insertLast(7);
 
@@ -112,9 +159,17 @@ public class SinglyLinkedList {
         sl.display();
 
         System.out.println("+++++++++");
-         sl.DeleteFirst();
+        //  sl.DeleteFirst();
 
         sl.display();
 
+        System.out.println();
+        System.out.println(sl.DeleteLast());
+        sl.display();
+
+        System.out.println(sl.DeleteAnyElem(1));
+        sl.display();
+        System.out.println();
+        System.out.println(sl.find(34));
     }
 }
